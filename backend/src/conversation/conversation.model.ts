@@ -12,4 +12,5 @@ export class Conversation {
 
     @Field(() => [Message])
     messages: Message[];
+    userIds: Array<string>;
 }
