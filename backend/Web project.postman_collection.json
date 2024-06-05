@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "602b7c7e-083d-4527-9b1d-1222f1454eed",
+		"name": "Web project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36024951"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"mutation { createUser(username: \\\"john_doe\\\", password: \\\"123456\\\") { id username password conversations { id } } }\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Conversation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"mutation { createConversation(userId1: \\\"1\\\", userId2: \\\"2\\\") { id userIds } }\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Messages",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"query { users { id username } }\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
