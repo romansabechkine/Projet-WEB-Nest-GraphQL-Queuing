@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthCheckModule } from './health-check/health-check.module';
 import { HealthCheckResolver } from './health-check/health-check.resolver';
+import {UserModule} from "./user/user.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { HealthCheckResolver } from './health-check/health-check.resolver';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     HealthCheckModule,
+      UserModule
   ],
   controllers: [AppController],
   providers: [AppService, HealthCheckResolver],
