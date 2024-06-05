@@ -1,30 +1,33 @@
-import {Injectable} from "@nestjs/common";
-import {User} from "./user.model";
-import {Conversation} from "../conversation/conversation.model";
+import { Injectable } from '@nestjs/common';
+import { User } from './user.model';
+import { Conversation } from '../conversation/conversation.model';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-    private users: User[] = [];
+  private users: User[] = [];
 
-    createUser(username: string): User {
-        const newUser = new User();
-        newUser.id = Date.now().toString();
-        newUser.username = username;
-        this.users.push(newUser);
-        return newUser;
-    }
+  async createUser(username: string, password: string): Promise<User> {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User();
+    newUser.id = Date.now().toString();
+    newUser.username = username;
+    newUser.password = hashedPassword;
+    newUser.conversations = [];
+    this.users.push(newUser);
+    return newUser;
+  }
 
-   findOne(id: string): User {
-        return this.users.find(user => user.id === id);
+  findOne(id: string): User {
+    return this.users.find(user => user.id === id);
+  }
 
-   }
+  getConversations(userId: string): Conversation[] {
+    const user = this.users.find(user => user.id === userId);
+    return user ? user.conversations : [];
+  }
 
-    getConversations(userId: string): Conversation[] {
-        const user = this.users.find(user => user.id === userId);
-        return user ? user.conversations : [];
-    }
-
-    findAll() {
-        return [];
-    }
+  findAll(): User[] {
+    return this.users;
+  }
 }

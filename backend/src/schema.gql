@@ -28,13 +28,17 @@ type Conversation {
 type User {
   id: ID!
   username: String!
-  conversations: [Conversation!]!
+  password: String!
+  conversations: [Conversation]
 }
 
 type Query {
   healthCheck: HealthCheckResult!
   users: [User!]!
-  CreateUser(username: String!): [User!]!
   user(id: String!): User!
-  userConversations(id: String!): Conversation!
+  userConversations(id: String!): [Conversation!]!
+}
+
+type Mutation {
+  createUser(username: String!, password: String!): User!
 }

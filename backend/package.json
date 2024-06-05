@@ -27,6 +27,7 @@
     "@nestjs/graphql": "^12.1.1",
     "@nestjs/platform-express": "^10.0.0",
     "apollo-server-express": "^3.13.0",
+    "bcrypt": "^5.1.1",
     "bullmq": "^5.7.14",
     "graphql": "^16.8.1",
     "redis": "^4.6.14",

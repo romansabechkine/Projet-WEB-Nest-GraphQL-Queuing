@@ -1,14 +1,17 @@
-import {Field, ID, ObjectType} from "@nestjs/graphql";
-import {Conversation} from "../conversation/conversation.model";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Conversation } from '../conversation/conversation.model';
 
 @ObjectType()
 export class User {
-    @Field(()=> ID)
-    id: string;
+  @Field(() => ID)
+  id: string;
 
-    @Field()
-    username: string;
+  @Field()
+  username: string;
 
-    @Field(() => [Conversation])
-    conversations: Conversation[];
+  @Field()
+  password: string;
+
+  @Field(() => [Conversation], { nullable: 'itemsAndList' })
+  conversations?: Conversation[];
 }
