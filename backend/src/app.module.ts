@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { BullModule } from '@nestjs/bull';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
@@ -15,6 +17,17 @@ import { MessageModule } from './message/message.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+    ConfigModule.forRoot(), // Loads environment variables from a .env file if present
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT, 10) || 6379,
+        maxRetriesPerRequest: null,  // Remove retry limit
+        retryStrategy: times => {
+          return Math.min(times * 50, 2000);
+        },
+      },
     }),
     HealthCheckModule,
     UserModule,
