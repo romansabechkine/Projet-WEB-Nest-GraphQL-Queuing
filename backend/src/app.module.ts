@@ -22,6 +22,6 @@ import { MessageModule } from './message/message.module';
     MessageModule,
   ],
   controllers: [AppController],
-  providers: [AppService, HealthCheckResolver],
+  providers: [AppService],
 })
 export class AppModule {}

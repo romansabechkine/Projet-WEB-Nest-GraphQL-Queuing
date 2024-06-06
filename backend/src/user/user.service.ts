@@ -1,33 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { User } from './user.model';
-import { Conversation } from '../conversation/conversation.model';
-import * as bcrypt from 'bcrypt';
+import {Injectable} from '@nestjs/common';
+import {User} from './user.model';
+import {Conversation} from '../conversation/conversation.model';
+import {PrismaService} from "../prisma.service";
 
 @Injectable()
 export class UserService {
-  private users: User[] = [];
+    constructor(private prisma: PrismaService) {
+    }
 
-  async createUser(username: string, password: string): Promise<User> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User();
-    newUser.id = Date.now().toString();
-    newUser.username = username;
-    newUser.password = hashedPassword;
-    newUser.conversations = [];
-    this.users.push(newUser);
-    return newUser;
-  }
+    async createUser(username: string) {
+        const createdUser = await this.prisma.user.create({
+            data: {
+                username: username,
+            }
+        });
+        return createdUser;
+    }
 
-  findOne(id: string): User {
-    return this.users.find(user => user.id === id);
-  }
 
-  getConversations(userId: string): Conversation[] {
-    const user = this.users.find(user => user.id === userId);
-    return user ? user.conversations : [];
-  }
-
-  findAll(): User[] {
-    return this.users;
-  }
 }

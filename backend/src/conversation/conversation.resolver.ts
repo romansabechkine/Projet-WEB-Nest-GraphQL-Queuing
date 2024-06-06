@@ -1,22 +1,14 @@
-import {Args, Mutation, Query, Resolver} from "@nestjs/graphql";
+import {Args, Mutation, Resolver} from "@nestjs/graphql";
 import {Conversation} from "./conversation.model";
 import {ConversationService} from "./conversation.service";
-import {Message} from "../message/message.model";
 
-@Resolver(()=> Conversation)
+@Resolver(() => Conversation)
 export class ConversationResolver {
-constructor(private conversationService: ConversationService) {
-}
-@Query(()=> [Conversation])
-async conversations() {
-return this.conversationService.findAll();
-}
-    @Query(() => [Message])
-    async getMessages(@Args('conversationId') conversationId: string) {
-        return this.conversationService.getMessages(conversationId);
+    constructor(private conversationService: ConversationService) {
     }
+
     @Mutation(() => Conversation)
-    async createConversation(@Args('userId1') userId1: string, @Args('userId2') userId2: string) {
-        return this.conversationService.createConversation(userId1, userId2);
+    async createConversation(@Args('username1') username1: string, @Args('username2') username2: string) {
+        return this.conversationService.createConversation(username1, username2);
     }
 }

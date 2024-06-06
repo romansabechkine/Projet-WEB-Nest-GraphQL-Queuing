@@ -8,10 +8,7 @@ export class Conversation {
     id: string;
 
     @Field(() => [User])
-    participants: User[];
-
-    @Field(() => [String])
-    userIds: string[];
+    users: User[];
 
     @Field(() => [Message], { nullable: true })
     messages?: Message[];

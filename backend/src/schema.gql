@@ -21,31 +21,24 @@ scalar DateTime
 
 type Conversation {
   id: ID!
-  participants: [User!]!
-  userIds: [String!]!
+  users: [User!]!
   messages: [Message!]
 }
 
 type User {
   id: ID!
   username: String!
-  password: String!
   conversations: [Conversation]
 }
 
 type Query {
   healthCheck: HealthCheckResult!
-  users: [User!]!
-  user(id: String!): User!
-  userConversations(id: String!): [Conversation!]!
-  conversations: [Conversation!]!
-  getMessages(conversationId: String!): [Message!]!
   getAllMessages: [Message!]!
 }
 
 type Mutation {
-  createUser(username: String!, password: String!): User!
-  createConversation(userId1: String!, userId2: String!): Conversation!
+  createUser(username: String!): User!
+  createConversation(username1: String!, username2: String!): Conversation!
   createMessage(createMessageInput: CreateMessageInput!): Message!
 }
 

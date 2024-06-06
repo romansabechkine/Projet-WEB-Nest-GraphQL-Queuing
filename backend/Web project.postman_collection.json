@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "602b7c7e-083d-4527-9b1d-1222f1454eed",
+		"_postman_id": "83bc1e0c-d074-4fb5-ba94-c1443cc78fb2",
 		"name": "Web project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "36024951"
+		"_exporter_id": "33550093"
 	},
 	"item": [
 		{
@@ -13,8 +13,7 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -81,8 +80,7 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
