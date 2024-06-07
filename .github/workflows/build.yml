@@ -35,7 +35,7 @@ jobs:
       - name: Build Docker images
         run: |
           cd backend
-          docker-compose build
+          docker-compose up --build
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
