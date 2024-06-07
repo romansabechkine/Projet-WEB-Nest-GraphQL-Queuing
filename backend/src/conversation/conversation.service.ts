@@ -30,4 +30,19 @@ export class ConversationService {
         } 
         return createdConversation;
     }
+
+    async getConversation(username1: string): Promise<Array<{ id: string }>> {
+        const conversations = await this.prisma.conversation.findMany({
+            where: {
+                users: {
+                    some: {
+                        username: username1
+                    }
+                }
+            }, include: {
+                users: true
+            }
+        });
+        return conversations;
+    }
 }
