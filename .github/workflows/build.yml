@@ -1,4 +1,4 @@
-name: Build and Publish Docker Images
+name: Build and Publish Docker Image
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Build Docker images
+      - name: Build Docker image
         run: |
           cd backend
           docker-compose build
@@ -40,13 +40,10 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Tag Docker images
+      - name: Tag Docker image
         run: |
           cd backend
-          docker tag backend_nestjs-app:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:backend
-          docker tag redis:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:redis
+          docker tag backend_nestjs-app:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:latest
 
-      - name: Push Docker images
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:backend
-          docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:redis
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
