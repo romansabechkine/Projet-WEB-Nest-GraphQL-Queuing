@@ -40,12 +40,16 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Pull Redis image
+        run: docker pull redis:latest
+
       - name: Tag Docker images
         run: |
           cd backend
-          
-          docker tag redis:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
+          docker tag backend_nestjs-app:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:backend
+          docker tag redis:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:redis
 
       - name: Push Docker images
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/nestja-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:redis
