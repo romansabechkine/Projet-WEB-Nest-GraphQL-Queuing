@@ -46,4 +46,4 @@ jobs:
           docker tag backend_nestjs-app:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:latest
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app1:latest
