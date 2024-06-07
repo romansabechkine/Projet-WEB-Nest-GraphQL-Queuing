@@ -44,9 +44,9 @@ jobs:
         run: |
           cd backend
           docker tag backend_nestjs-app:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
-          docker tag redis:latest ${{ secrets.DOCKER_USERNAME }}/redis:latest
+          docker tag redis:latest ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
 
       - name: Push Docker images
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/redis:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/nestja-app:latest
