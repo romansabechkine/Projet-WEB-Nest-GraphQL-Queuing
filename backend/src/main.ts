@@ -3,8 +3,12 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+  const REACT_APP_URL = isDevelopment ? 'http://localhost:3001' : process.env.FRONTEND_URL;
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3001', // React app URL
+    origin: REACT_APP_URL, // React app URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
