@@ -3,6 +3,7 @@ import { BullModule } from '@nestjs/bull';
 import { MessageService } from './message.service';
 import { MessageResolver } from './message.resolver';
 import { MessageProcessor } from './message.processor';
+import {PrismaService} from "../prisma.service";
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { MessageProcessor } from './message.processor';
       name: 'message-queue',
     }),
   ],
-  providers: [MessageService, MessageResolver, MessageProcessor],
+  providers: [MessageService, MessageResolver, MessageProcessor, PrismaService],
 })
 export class MessageModule {}

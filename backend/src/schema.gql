@@ -9,48 +9,29 @@ type HealthCheckResult {
 type Message {
   id: ID!
   content: String!
-  sender: User!
-  conversation: Conversation!
-  timestamp: DateTime!
+  user: User!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type Conversation {
   id: ID!
-  participants: [User!]!
-  userIds: [String!]!
+  users: [User!]!
   messages: [Message!]
 }
 
 type User {
   id: ID!
   username: String!
-  password: String!
   conversations: [Conversation]
 }
 
 type Query {
   healthCheck: HealthCheckResult!
-  users: [User!]!
-  user(id: String!): User!
-  userConversations(id: String!): [Conversation!]!
-  conversations: [Conversation!]!
+  getConversation(username1: String!): [Conversation!]!
   getMessages(conversationId: String!): [Message!]!
-  getAllMessages: [Message!]!
 }
 
 type Mutation {
-  createUser(username: String!, password: String!): User!
-  createConversation(userId1: String!, userId2: String!): Conversation!
-  createMessage(createMessageInput: CreateMessageInput!): Message!
-}
-
-input CreateMessageInput {
-  content: String!
-  senderId: String!
-  conversationId: String!
+  createUser(username: String!): User!
+  createConversation(username1: String!, username2: String!): Conversation!
+  createMessage(username: String!, content: String!, conversationId: String!): Message!
 }

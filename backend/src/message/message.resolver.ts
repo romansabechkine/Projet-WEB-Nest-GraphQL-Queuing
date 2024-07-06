@@ -1,19 +1,19 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { MessageService } from './message.service';
-import { Message } from './message.model';
-import { CreateMessageInput } from '../dto/create-message-input';
+import {Args, Mutation, Query, Resolver} from '@nestjs/graphql';
+import {MessageService} from './message.service';
+import {Message} from './message.model';
 
 @Resolver(() => Message)
 export class MessageResolver {
-  constructor(private readonly messageService: MessageService) {}
+    constructor(private readonly messageService: MessageService) {
+    }
 
-  @Query(() => [Message], { name: 'getAllMessages' })
-  async getMessages() {
-    return this.messageService.findAll();
-  }
+    @Mutation(() => Message)
+    async createMessage(@Args('username') username: string, @Args('content') content: string, @Args('conversationId') conversationId: string) {
+        return this.messageService.createMessage(username, content, conversationId);
+    }
 
-  @Mutation(() => Message)
-  async createMessage(@Args('createMessageInput') createMessageInput: CreateMessageInput) {
-    return this.messageService.create(createMessageInput);
-  }
+    @Query(() => [Message])
+    async getMessages(@Args('conversationId') conversationId: string) {
+        return this.messageService.getMessages(conversationId);
+    }
 }
