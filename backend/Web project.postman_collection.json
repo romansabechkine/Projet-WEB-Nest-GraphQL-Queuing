@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "83bc1e0c-d074-4fb5-ba94-c1443cc78fb2",
+		"_postman_id": "073b27ac-4280-4196-b62c-8fde31f4ce3a",
 		"name": "Web project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33550093"
+		"_exporter_id": "27201519"
 	},
 	"item": [
 		{
@@ -17,10 +17,13 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"query\": \"mutation { createUser(username: \\\"john_doe\\\", password: \\\"123456\\\") { id username password conversations { id } } }\"\r\n}\r\n",
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation CreateUser($username: String!) {\n    createUser(username: $username) {\n      id\n      username\n    } \n}\n\n",
+						"variables": "{\n    \"username\": \"john3\"\n}"
+					},
 					"options": {
-						"raw": {
+						"graphql": {
 							"language": "json"
 						}
 					}
@@ -45,10 +48,13 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"query\": \"mutation { createConversation(userId1: \\\"1\\\", userId2: \\\"2\\\") { id userIds } }\"\r\n}\r\n",
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createConversation($username1: String!, $username2: String!) {\n    createConversation(username1: $username1, username2: $username2) {\n      id\n      users {\n          username\n      }\n    } \n}",
+						"variables": "{\"username1\": \"john2\",\n\"username2\": \"test\"}"
+					},
 					"options": {
-						"raw": {
+						"graphql": {
 							"language": "json"
 						}
 					}
@@ -74,7 +80,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Messages",
+			"name": "Create Message",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -84,12 +90,67 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"query\": \"query { users { id username } }\"\r\n}\r\n",
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createMessage($conversationId: String!, $username: String!, $content: String!) {\n    createMessage(conversationId: $conversationId, username: $username, content: $content, ) {\n      id\n      content\n      user {\n          username\n      }\n    } \n}",
+						"variables": "{\n    \"conversationId\": \"clx4qphts0004vutex4jzuney\", \n    \"username\": \"john2\",\n    \"content\": \"Super message from John2 to John3\"\n}"
+					},
 					"options": {
-						"raw": {
+						"graphql": {
 							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Conversations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query getConversation($username1: String!) {\n    getConversation(username1: $username1) {\n      id\n      users{\n        username\n        }\n      }\n    } ",
+						"variables": "{\n    \"username1\": \"mark1\"\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Messages",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query getMessages($conversationId: String!) {\n    getMessages(conversationId: $conversationId) {\n      user{\n        username\n        }\n      content\n      },\n    } ",
+						"variables": "{\n    \"conversationId\": \"clyagyv2d000214kob616eltc\"\n}"
 					}
 				},
 				"url": {

@@ -8,15 +8,7 @@ export class ConversationService {
     }
 
     async createConversation(username1: string, username2: string): Promise<Conversation> {
-        const createdConversation = await this.prisma.conversation.create({
-            data: {
-                users: {
-                    connect: [{username: username1}, {username: username2}]
-                }
-            }, include: {
-                users: true
-            }
-        })
+        
         const conversationExists = await this.prisma.conversation.findFirst({
             where: {
                 AND: [
@@ -27,7 +19,16 @@ export class ConversationService {
         })
         if (conversationExists) {
             throw new Error('Conversation already exists');
-        } 
+        }
+        const createdConversation = await this.prisma.conversation.create({
+            data: {
+                users: {
+                    connect: [{username: username1}, {username: username2}]
+                }
+            }, include: {
+                users: true
+            }
+        })
         return createdConversation;
     }
 
