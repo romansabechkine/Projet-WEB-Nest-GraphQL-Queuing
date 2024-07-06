@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
-console.log("REACT_APP_API_URL:", process.env.REACT_APP_API_URL);
+console.log("env vars:", process.env);
 console.log("API_URL:", API_URL);
 
 export const healthCheck = async () => {
