@@ -16,6 +16,9 @@ COPY . .
 # Rebuild native modules (if you have any)
 RUN npm rebuild bcrypt --build-from-source
 
+# Generate Prisma Client
+RUN npx prisma generate
+
 # Build the NestJS application
 RUN npm run build
 
