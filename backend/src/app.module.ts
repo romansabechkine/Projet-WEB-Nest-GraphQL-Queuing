@@ -23,7 +23,7 @@ import { MessageModule } from './message/message.module';
       redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT, 10) || 6379,
-        password: process.env.REDIS_PASSWORD, // Add this line
+        password: process.env.REDIS_PASSWORD,
         maxRetriesPerRequest: null, // Remove retry limit
         retryStrategy: times => {
           return Math.min(times * 50, 2000);
