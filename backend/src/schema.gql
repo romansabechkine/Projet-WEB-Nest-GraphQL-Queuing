@@ -12,6 +12,10 @@ type Message {
   user: User!
 }
 
+type MessageResponse {
+  status: String!
+}
+
 type Conversation {
   id: ID!
   users: [User!]!
@@ -33,5 +37,5 @@ type Query {
 type Mutation {
   createUser(username: String!): User!
   createConversation(username1: String!, username2: String!): Conversation!
-  createMessage(username: String!, content: String!, conversationId: String!): Message!
+  createMessage(username: String!, content: String!, conversationId: String!): MessageResponse!
 }

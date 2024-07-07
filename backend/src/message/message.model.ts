@@ -13,3 +13,9 @@ export class Message {
     user: User;
 
 }
+
+@ObjectType()
+export class MessageResponse {
+    @Field()
+    status: string;
+}

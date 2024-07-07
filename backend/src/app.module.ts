@@ -9,9 +9,17 @@ import { HealthCheckResolver } from './health-check/health-check.resolver';
 import {UserModule} from "./user/user.module";
 import { ConversationModule } from './conversation/conversation.module';
 import { MessageModule } from './message/message.module';
+import { BullModule } from '@nestjs/bullmq';
+
 
 @Module({
   imports: [
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

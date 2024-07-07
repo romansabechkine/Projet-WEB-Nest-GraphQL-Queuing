@@ -4,7 +4,9 @@ import {Conversation} from "./conversation.model";
 
 @Injectable()
 export class ConversationService {
-    constructor(private prisma: PrismaService) {
+    constructor(private prisma: PrismaService,
+        
+    ) {
     }
 
     async createConversation(username1: string, username2: string): Promise<Conversation> {
